@@ -11,7 +11,7 @@ import { LoadingButton } from "@/components/ui/LoadingButton";
 type Bank = {
 	code: string;
 	name: string;
-};
+}; 
 
 export default function AccountSettingsPage() {
 	const router = useRouter();
