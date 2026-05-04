@@ -199,11 +199,6 @@ export default function ClientDashboard() {
 		getProfile();
 	}, [getCurrentUser, router, supabase]);
 
-	const handleLogout = async () => {
-		await supabase.auth.signOut();
-		router.push("/login");
-	};
-
 	const dismissChecklist = async () => {
 		setDismissingChecklist(true);
 		setShowChecklist(false);
@@ -283,7 +278,6 @@ export default function ClientDashboard() {
 					fullName={profile?.full_name || ""}
 					unreadNotifications={unreadNotifications}
 					onUnreadNotificationsChange={setUnreadNotifications}
-					onLogout={handleLogout}
 				/>
 			</nav>
 
@@ -304,18 +298,21 @@ export default function ClientDashboard() {
 						items={[
 							{
 								id: "profile",
-								label: "Complete your basic profile in /profile",
+								label: "Complete your basic profile",
+								href: "/profile",
 								completed: Boolean(profile?.full_name && profile?.country),
 							},
 							{
 								id: "job",
 								label: "Post your first job",
+								href: "/jobs/post",
 								completed:
 									stats.activeProjects > 0 || stats.completedProjects > 0,
 							},
 							{
 								id: "contract",
 								label: "Start your first contract",
+								href: "/dashboard/client/contracts",
 								completed: stats.completedProjects > 0,
 							},
 						]}

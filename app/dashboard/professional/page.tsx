@@ -199,11 +199,6 @@ export default function ProfessionalDashboard() {
 		getProfile();
 	}, [getCurrentUser, router, supabase]);
 
-	const handleLogout = async () => {
-		await supabase.auth.signOut();
-		router.push("/login");
-	};
-
 	if (loading) {
 		return (
 			<div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
@@ -258,7 +253,6 @@ export default function ProfessionalDashboard() {
 					fullName={profile?.full_name || ""}
 					unreadNotifications={unreadNotifications}
 					onUnreadNotificationsChange={setUnreadNotifications}
-					onLogout={handleLogout}
 				/>
 			</nav>
 

@@ -11,7 +11,6 @@ type DashboardHeaderActionsProps = {
 	fullName: string;
 	unreadNotifications: number;
 	onUnreadNotificationsChange?: (count: number) => void;
-	onLogout: () => void;
 };
 
 export default function DashboardHeaderActions({
@@ -20,7 +19,6 @@ export default function DashboardHeaderActions({
 	fullName,
 	unreadNotifications,
 	onUnreadNotificationsChange,
-	onLogout,
 }: DashboardHeaderActionsProps) {
 	return (
 		<div className="flex items-center gap-3">
@@ -50,14 +48,10 @@ export default function DashboardHeaderActions({
 				<Settings className="w-4 h-4" />
 			</Link>
 
-			<UserChip fullName={fullName} />
-
-			<button
-				onClick={onLogout}
-				className="text-sm text-red-500 hover:text-red-700 font-medium"
-			>
-				Log out
-			</button>
+			<UserChip
+				fullName={fullName}
+				showName={false}
+			/>
 		</div>
 	);
 }

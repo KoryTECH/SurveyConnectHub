@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { CheckCircle2, ChevronDown, Circle, X } from "lucide-react";
 
 type ChecklistItem = {
 	id: string;
 	label: string;
+	href?: string;
 	completed: boolean;
 };
 
@@ -78,7 +80,16 @@ export default function ChecklistPanel({
 							) : (
 								<Circle className="w-4 h-4 text-gray-400" />
 							)}
-							<span>{item.label}</span>
+							{item.href ? (
+								<Link
+									href={item.href}
+									className="text-green-700 dark:text-green-300 hover:text-green-800 dark:hover:text-green-200"
+								>
+									{item.label}
+								</Link>
+							) : (
+								<span>{item.label}</span>
+							)}
 						</div>
 					))}
 				</div>

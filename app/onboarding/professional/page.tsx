@@ -162,7 +162,8 @@ export default function ProfessionalOnboardingPage() {
 		if (nextStep !== "professional") {
 			professionalPayload.profession_type = formData.profession_type;
 			professionalPayload.years_experience = years;
-			professionalPayload.license_number = formData.license_number.trim() || null;
+			professionalPayload.license_number =
+				formData.license_number.trim() || null;
 		}
 
 		const { error: professionalError } = await supabase
@@ -188,10 +189,8 @@ export default function ProfessionalOnboardingPage() {
 	};
 
 	const handleFinish = async () => {
-		const ok = await saveStep("complete");
-		if (!ok) return;
-
 		setSaving(true);
+		setError("");
 
 		const { error: completionError } = await supabase
 			.from("professional_profiles")
