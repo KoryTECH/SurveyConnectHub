@@ -365,7 +365,7 @@ export default function VerificationPage() {
 									type="file"
 									accept="image/jpeg,image/png,application/pdf"
 									onChange={handleIdFileChange}
-									className="hidden"
+									className="hidden dark:text-white dark:placeholder-gray-400"
 									id="id-upload"
 								/>
 								<label
@@ -437,7 +437,7 @@ export default function VerificationPage() {
 									type="file"
 									accept="image/jpeg,image/png,application/pdf"
 									onChange={handleLicenseFileChange}
-									className="hidden"
+									className="hidden dark:text-white dark:placeholder-gray-400"
 									id="license-upload"
 								/>
 								<label

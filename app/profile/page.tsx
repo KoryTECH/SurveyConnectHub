@@ -199,7 +199,7 @@ export default function ProfilePage() {
 								name="full_name"
 								value={formData.full_name}
 								onChange={handleChange}
-								className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+								className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 dark:placeholder-gray-400"
 							/>
 						</div>
 						<div>
@@ -212,7 +212,7 @@ export default function ProfilePage() {
 								value={formData.phone}
 								onChange={handleChange}
 								placeholder="+234..."
-								className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+								className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 dark:placeholder-gray-400"
 							/>
 						</div>
 						<div className="grid grid-cols-2 gap-4">
@@ -229,7 +229,7 @@ export default function ProfilePage() {
 									name="country"
 									value={formData.country}
 									onChange={handleChange}
-									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 dark:placeholder-gray-400"
 								/>
 							</div>
 							<div>
@@ -245,7 +245,7 @@ export default function ProfilePage() {
 									name="city"
 									value={formData.city}
 									onChange={handleChange}
-									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 dark:placeholder-gray-400"
 								/>
 							</div>
 						</div>
@@ -259,7 +259,7 @@ export default function ProfilePage() {
 								onChange={handleChange}
 								rows={3}
 								placeholder="Tell clients about yourself..."
-								className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 resize-none"
+								className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 resize-none dark:placeholder-gray-400"
 							/>
 						</div>
 					</div>
@@ -287,7 +287,7 @@ export default function ProfilePage() {
 									name="bank_name"
 									value={formData.bank_name}
 									onChange={handleChange}
-									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 dark:placeholder-gray-400"
 								>
 									<option value="">Select your bank</option>
 									{banks.length > 0 ? (
@@ -342,7 +342,7 @@ export default function ProfilePage() {
 									onChange={handleChange}
 									placeholder="0123456789"
 									maxLength={10}
-									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 dark:placeholder-gray-400"
 								/>
 							</div>
 							<div>
@@ -355,7 +355,7 @@ export default function ProfilePage() {
 									value={formData.bank_account_name}
 									onChange={handleChange}
 									placeholder="As it appears on your bank account"
-									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+									className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 dark:placeholder-gray-400"
 								/>
 							</div>
 						</div>

@@ -295,7 +295,7 @@ export default function ProfessionalOnboardingPage() {
 										}))
 									}
 									placeholder="Enter your full name"
-									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 								/>
 							</div>
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -317,7 +317,7 @@ export default function ProfessionalOnboardingPage() {
 												phone: e.target.value,
 											}))
 										}
-										className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+										className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 									/>
 								</div>
 								<div>
@@ -338,7 +338,7 @@ export default function ProfessionalOnboardingPage() {
 												country: e.target.value,
 											}))
 										}
-										className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+										className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 									/>
 								</div>
 							</div>
@@ -357,7 +357,7 @@ export default function ProfessionalOnboardingPage() {
 									onChange={(e) =>
 										setFormData((prev) => ({ ...prev, city: e.target.value }))
 									}
-									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 								/>
 							</div>
 							<div>
@@ -375,7 +375,7 @@ export default function ProfessionalOnboardingPage() {
 									onChange={(e) =>
 										setFormData((prev) => ({ ...prev, bio: e.target.value }))
 									}
-									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 resize-none"
+									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 resize-none dark:text-white dark:placeholder-gray-400"
 								/>
 							</div>
 						</>
@@ -399,7 +399,7 @@ export default function ProfessionalOnboardingPage() {
 											profession_type: e.target.value,
 										}))
 									}
-									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 								>
 									<option value="">Select profession</option>
 									{professionOptions.map((option) => (
@@ -433,7 +433,7 @@ export default function ProfessionalOnboardingPage() {
 												years_experience: e.target.value,
 											}))
 										}
-										className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+										className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 									/>
 								</div>
 								<div>
@@ -454,7 +454,7 @@ export default function ProfessionalOnboardingPage() {
 												license_number: e.target.value,
 											}))
 										}
-										className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+										className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 									/>
 								</div>
 							</div>

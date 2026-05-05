@@ -344,7 +344,7 @@ export default function MessagesPage() {
 							onKeyDown={handleKeyDown}
 							placeholder="Type a message... (Enter to send)"
 							rows={1}
-							className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 placeholder-gray-400 dark:placeholder-gray-500 resize-none text-sm"
+							className="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 placeholder-gray-400 dark:placeholder-gray-500 dark:placeholder-gray-400 resize-none text-sm"
 						/>
 						<button
 							onClick={handleSend}

@@ -11,7 +11,7 @@ import { LoadingButton } from "@/components/ui/LoadingButton";
 type Bank = {
 	code: string;
 	name: string;
-}; 
+};
 
 export default function AccountSettingsPage() {
 	const router = useRouter();
@@ -298,7 +298,7 @@ export default function AccountSettingsPage() {
 							onChange={(e) =>
 								setProfile((prev) => ({ ...prev, full_name: e.target.value }))
 							}
-							className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+							className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 						/>
 					</div>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -317,7 +317,7 @@ export default function AccountSettingsPage() {
 								onChange={(e) =>
 									setProfile((prev) => ({ ...prev, phone: e.target.value }))
 								}
-								className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+								className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 							/>
 						</div>
 						<div>
@@ -335,7 +335,7 @@ export default function AccountSettingsPage() {
 								onChange={(e) =>
 									setProfile((prev) => ({ ...prev, country: e.target.value }))
 								}
-								className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+								className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 							/>
 						</div>
 					</div>
@@ -354,7 +354,7 @@ export default function AccountSettingsPage() {
 							onChange={(e) =>
 								setProfile((prev) => ({ ...prev, city: e.target.value }))
 							}
-							className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+							className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 						/>
 					</div>
 					<div>
@@ -372,7 +372,7 @@ export default function AccountSettingsPage() {
 							onChange={(e) =>
 								setProfile((prev) => ({ ...prev, bio: e.target.value }))
 							}
-							className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 resize-none"
+							className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 resize-none dark:text-white dark:placeholder-gray-400"
 						/>
 					</div>
 
@@ -393,7 +393,7 @@ export default function AccountSettingsPage() {
 								onChange={(e) =>
 									setProfile((prev) => ({ ...prev, bank_name: e.target.value }))
 								}
-								className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+								className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 							>
 								<option value="">Select bank</option>
 								{banks.map((bank) => (
@@ -427,7 +427,7 @@ export default function AccountSettingsPage() {
 											),
 										}))
 									}
-									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 								/>
 							</div>
 							<div>
@@ -448,7 +448,7 @@ export default function AccountSettingsPage() {
 											bank_account_name: e.target.value,
 										}))
 									}
-									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800"
+									className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 								/>
 							</div>
 						</div>
@@ -479,6 +479,7 @@ export default function AccountSettingsPage() {
 									notification_email: e.target.checked,
 								}))
 							}
+							className="dark:text-white dark:placeholder-gray-400"
 						/>
 						Email notifications
 					</label>
@@ -492,6 +493,7 @@ export default function AccountSettingsPage() {
 									notification_messages: e.target.checked,
 								}))
 							}
+							className="dark:text-white dark:placeholder-gray-400"
 						/>
 						Message notifications
 					</label>
@@ -505,6 +507,7 @@ export default function AccountSettingsPage() {
 									notification_marketing: e.target.checked,
 								}))
 							}
+							className="dark:text-white dark:placeholder-gray-400"
 						/>
 						Product and marketing updates
 					</label>
@@ -542,7 +545,7 @@ export default function AccountSettingsPage() {
 										newPassword: e.target.value,
 									}))
 								}
-								className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 pr-11 bg-white dark:bg-gray-800"
+								className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 pr-11 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 							/>
 							<button
 								type="button"
@@ -579,7 +582,7 @@ export default function AccountSettingsPage() {
 										confirmPassword: e.target.value,
 									}))
 								}
-								className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 pr-11 bg-white dark:bg-gray-800"
+								className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 pr-11 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
 							/>
 							<button
 								type="button"
