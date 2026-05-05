@@ -32,9 +32,6 @@ export default function VerificationPage() {
 	const [licenseFile, setLicenseFile] = useState<File | null>(null);
 	const [idFileError, setIdFileError] = useState("");
 	const [licenseFileError, setLicenseFileError] = useState("");
-	const [professionType, setProfessionType] = useState("");
-	const [licenseNumber, setLicenseNumber] = useState("");
-	const [yearsExperience, setYearsExperience] = useState("");
 
 	useEffect(() => {
 		const getData = async () => {
@@ -155,8 +152,8 @@ export default function VerificationPage() {
 			setError("Please upload your professional license or certificate");
 			return;
 		}
-		if (!professionType) {
-			setError("Please select your profession type");
+		if (!profProfile?.profession_type) {
+			setError("Complete your professional onboarding details first.");
 			return;
 		}
 		if (idFileError || licenseFileError) {
@@ -183,9 +180,9 @@ export default function VerificationPage() {
 				.from("professional_profiles")
 				.upsert({
 					id: user.id,
-					profession_type: professionType,
-					license_number: licenseNumber,
-					years_experience: parseInt(yearsExperience) || 0,
+					profession_type: profProfile.profession_type,
+					license_number: profProfile.license_number || null,
+					years_experience: profProfile.years_experience || 0,
 					id_document_url: idFileName,
 					license_url: licenseFileName,
 					verification_status: "pending",
@@ -198,7 +195,7 @@ export default function VerificationPage() {
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
 						professionalName: profile?.full_name,
-						professionType: getProfessionLabel(professionType),
+						professionType: getProfessionLabel(profProfile.profession_type),
 						userId: user.id,
 					}),
 				});
@@ -313,75 +310,37 @@ export default function VerificationPage() {
 						onSubmit={handleSubmit}
 						className="space-y-6"
 					>
-						<div>
-							<label
-								htmlFor="professionType"
-								className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-							>
-								Profession Type <span className="text-red-500">*</span>
-							</label>
-							<select
-								id="professionType"
-								value={professionType}
-								onChange={(e) => setProfessionType(e.target.value)}
-								required
-								className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800"
-							>
-								<option value="">Select your profession</option>
-								<option value="land_surveyor">Land Surveyor</option>
-								<option value="gis_analyst">GIS Analyst</option>
-								<option value="drone_pilot">Drone/UAV Pilot</option>
-								<option value="cartographer">Cartographer</option>
-								<option value="photogrammetrist">Photogrammetrist</option>
-								<option value="lidar_specialist">LiDAR Specialist</option>
-								<option value="remote_sensing_analyst">
-									Remote Sensing Analyst
-								</option>
-								<option value="urban_planner">Urban Planner</option>
-								<option value="spatial_data_scientist">
-									Spatial Data Scientist
-								</option>
-								<option value="hydrographic_surveyor">
-									Hydrographic Surveyor
-								</option>
-								<option value="mining_surveyor">Mining Surveyor</option>
-								<option value="construction_surveyor">
-									Construction Surveyor
-								</option>
-								<option value="environmental_analyst">
-									Environmental Analyst
-								</option>
-								<option value="bim_specialist">BIM Specialist</option>
-								<option value="other">Other</option>
-							</select>
-						</div>
-
-						<div>
-							<label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-								License / Registration Number
-							</label>
-							<input
-								type="text"
-								value={licenseNumber}
-								onChange={(e) => setLicenseNumber(e.target.value)}
-								placeholder="e.g. NIS/2024/12345"
-								className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 placeholder-gray-400 dark:placeholder-gray-500"
-							/>
-						</div>
-
-						<div>
-							<label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-								Years of Experience
-							</label>
-							<input
-								type="number"
-								value={yearsExperience}
-								onChange={(e) => setYearsExperience(e.target.value)}
-								placeholder="e.g. 5"
-								min="0"
-								max="50"
-								className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-900 dark:text-white bg-white dark:bg-gray-800 placeholder-gray-400 dark:placeholder-gray-500"
-							/>
+						<div className="rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-950/40 p-4">
+							<h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
+								Professional Details (from onboarding)
+							</h4>
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-600 dark:text-gray-400">
+								<div>
+									<span className="font-medium text-gray-700 dark:text-gray-300">
+										Profession Type:
+									</span>{" "}
+									{profProfile?.profession_type
+										? getProfessionLabel(profProfile.profession_type)
+										: "Not set"}
+								</div>
+								<div>
+									<span className="font-medium text-gray-700 dark:text-gray-300">
+										Years Experience:
+									</span>{" "}
+									{typeof profProfile?.years_experience === "number"
+										? profProfile.years_experience
+										: "Not set"}
+								</div>
+								<div className="md:col-span-2">
+									<span className="font-medium text-gray-700 dark:text-gray-300">
+										License Number:
+									</span>{" "}
+									{profProfile?.license_number || "Not set"}
+								</div>
+							</div>
+							<p className="text-xs text-gray-500 dark:text-gray-500 mt-3">
+								Need to update these details? Go back to onboarding.
+							</p>
 						</div>
 
 						{/* Government ID Upload */}

@@ -78,6 +78,18 @@ export default function SignupPage() {
 
 				router.push("/dashboard/client");
 			} else {
+				const { error: professionalError } = await supabase
+					.from("professional_profiles")
+					.insert({
+						id: authData.user.id,
+						profession_type: "other",
+						years_experience: 0,
+						license_number: null,
+						verification_status: "rejected",
+					});
+
+				if (professionalError) throw professionalError;
+
 				router.push("/onboarding/professional");
 			}
 		} catch (err: any) {

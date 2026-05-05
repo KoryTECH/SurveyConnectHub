@@ -88,13 +88,23 @@ export default function ProfessionalOnboardingPage() {
 
 			setStep(stepMap[professional?.onboarding_step || "profile"] || 1);
 
+			const isPlaceholderProfessional =
+				professional?.profession_type === "other" &&
+				!professional?.license_number &&
+				!professional?.onboarding_completed &&
+				(professional?.years_experience ?? 0) === 0;
+
+			const initialProfessionType = isPlaceholderProfessional
+				? ""
+				: professional?.profession_type || "";
+
 			setFormData({
 				full_name: profile.full_name || "",
 				phone: profile.phone || "",
 				country: profile.country || "",
 				city: profile.city || "",
 				bio: profile.bio || "",
-				profession_type: professional?.profession_type || "",
+				profession_type: initialProfessionType,
 				years_experience: professional?.years_experience
 					? String(professional.years_experience)
 					: "",
@@ -154,21 +164,26 @@ export default function ProfessionalOnboardingPage() {
 			return false;
 		}
 
-		const professionalPayload: Record<string, unknown> = {
-			id: userId,
-			onboarding_step: nextStep,
-		};
-
-		if (nextStep !== "professional") {
-			professionalPayload.profession_type = formData.profession_type;
-			professionalPayload.years_experience = years;
-			professionalPayload.license_number =
-				formData.license_number.trim() || null;
-		}
-
-		const { error: professionalError } = await supabase
-			.from("professional_profiles")
-			.upsert(professionalPayload, { onConflict: "id" });
+		const professionalError =
+			nextStep === "professional"
+				? (
+						await supabase
+							.from("professional_profiles")
+							.update({ onboarding_step: nextStep })
+							.eq("id", userId)
+					).error
+				: (
+						await supabase.from("professional_profiles").upsert(
+							{
+								id: userId,
+								onboarding_step: nextStep,
+								profession_type: formData.profession_type,
+								years_experience: years,
+								license_number: formData.license_number.trim() || null,
+							},
+							{ onConflict: "id" },
+						)
+					).error;
 
 		if (professionalError) {
 			console.error("Failed to save professional details", professionalError);
