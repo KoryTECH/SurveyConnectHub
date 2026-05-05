@@ -9,6 +9,7 @@ type DashboardHeaderActionsProps = {
 	theme: string | undefined;
 	toggleTheme: () => void;
 	fullName: string;
+	userId: string | null;
 	unreadNotifications: number;
 	onUnreadNotificationsChange?: (count: number) => void;
 };
@@ -17,6 +18,7 @@ export default function DashboardHeaderActions({
 	theme,
 	toggleTheme,
 	fullName,
+	userId,
 	unreadNotifications,
 	onUnreadNotificationsChange,
 }: DashboardHeaderActionsProps) {
@@ -36,6 +38,7 @@ export default function DashboardHeaderActions({
 
 			<NotificationBellDropdown
 				unreadCount={unreadNotifications}
+				userId={userId}
 				onUnreadCountChange={onUnreadNotificationsChange}
 			/>
 

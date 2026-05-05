@@ -81,6 +81,15 @@ export default function ProfessionalContractsPage() {
 				}).catch(() => {});
 			}
 
+			await fetch("/api/notifications/create", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					event: "job_completed",
+					contractId,
+				}),
+			}).catch(() => {});
+
 			setContracts((prev) =>
 				prev.map((c) =>
 					c.id === contractId ? { ...c, status: "completed" } : c,

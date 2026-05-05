@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Bell, CheckCheck } from "lucide-react";
 import type { Notification } from "@/types/database";
+import { createClient } from "@/lib/supabase/client";
 
 type NotificationItem = Pick<
 	Notification,
@@ -12,6 +13,7 @@ type NotificationItem = Pick<
 
 type NotificationBellDropdownProps = {
 	unreadCount: number;
+	userId: string | null;
 	onUnreadCountChange?: (count: number) => void;
 };
 
@@ -20,7 +22,7 @@ const STORAGE_KEY = "sch_notifications";
 type CachedNotifications = {
 	notifications: NotificationItem[];
 	fetchedAt: number;
-	unreadCount: number;
+	unreadCount?: number;
 };
 
 const readCache = (): CachedNotifications | null => {
@@ -32,13 +34,9 @@ const readCache = (): CachedNotifications | null => {
 		const notifications = Array.isArray(parsed.notifications)
 			? parsed.notifications
 			: [];
-		const unreadCount =
-			typeof parsed.unreadCount === "number"
-				? parsed.unreadCount
-				: notifications.filter((item) => !item.is_read).length;
 		const fetchedAt =
 			typeof parsed.fetchedAt === "number" ? parsed.fetchedAt : 0;
-		return { notifications, unreadCount, fetchedAt };
+		return { notifications, fetchedAt };
 	} catch {
 		try {
 			sessionStorage.removeItem(STORAGE_KEY);
@@ -67,8 +65,10 @@ const writeCache = (notifications: NotificationItem[], unreadCount: number) => {
 
 export default function NotificationBellDropdown({
 	unreadCount,
+	userId,
 	onUnreadCountChange,
 }: NotificationBellDropdownProps) {
+	const supabase = useMemo(() => createClient(), []);
 	const [open, setOpen] = useState(false);
 	const [isChecking, setIsChecking] = useState(false);
 	const [markingAll, setMarkingAll] = useState(false);
@@ -129,10 +129,39 @@ export default function NotificationBellDropdown({
 		const cached = readCache();
 		if (cached) {
 			setNotifications(cached.notifications);
-			onUnreadCountChange?.(cached.unreadCount);
 		}
 		mergeNotifications().catch(() => {});
 	}, [mergeNotifications, onUnreadCountChange]);
+
+	useEffect(() => {
+		if (!userId) return;
+
+		const channel = supabase
+			.channel("notifications-realtime")
+			.on(
+				"postgres_changes",
+				{
+					event: "INSERT",
+					schema: "public",
+					table: "notifications",
+					filter: `user_id=eq.${userId}`,
+				},
+				(payload) => {
+					const newItem = payload.new as NotificationItem;
+					updateNotifications((prev) => {
+						if (prev.some((item) => item.id === newItem.id)) {
+							return prev;
+						}
+						return [newItem, ...prev];
+					});
+				},
+			)
+			.subscribe();
+
+		return () => {
+			supabase.removeChannel(channel);
+		};
+	}, [supabase, updateNotifications, userId]);
 
 	useEffect(() => {
 		if (open) {

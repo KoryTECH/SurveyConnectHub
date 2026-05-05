@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient, createServiceClient } from "@/lib/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -202,6 +202,43 @@ export async function GET(request: NextRequest) {
 							},
 						}),
 					}).catch(() => {});
+				}
+
+				try {
+					const serviceClient = createServiceClient();
+					const { error: notificationError } = await serviceClient
+						.from("notifications")
+						.insert([
+							{
+								user_id: contract.client_id,
+								title: "Contract activated",
+								message: `Your contract for "${jobTitle}" with ${
+									professionalProfile?.full_name ?? "the professional"
+								} is now active.`,
+								type: "contract",
+								link: "/dashboard/client/contracts",
+								is_read: false,
+							},
+							{
+								user_id: contract.professional_id,
+								title: "Contract activated",
+								message: `Your contract for "${jobTitle}" with ${
+									clientProfile?.full_name ?? "the client"
+								} is now active.`,
+								type: "contract",
+								link: "/dashboard/professional/contracts",
+								is_read: false,
+							},
+						]);
+
+					if (notificationError) {
+						console.error(
+							"Failed to insert contract activation notifications:",
+							notificationError,
+						);
+					}
+				} catch (error) {
+					console.error("Failed to create notification client:", error);
 				}
 			}
 		}

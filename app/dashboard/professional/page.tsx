@@ -30,6 +30,7 @@ export default function ProfessionalDashboard() {
 	const [loading, setLoading] = useState(true);
 	const [unreadCount, setUnreadCount] = useState(0);
 	const [unreadNotifications, setUnreadNotifications] = useState(0);
+	const [userId, setUserId] = useState<string | null>(null);
 	const [stats, setStats] = useState({
 		jobsCompleted: 0,
 		totalEarned: 0,
@@ -37,30 +38,6 @@ export default function ProfessionalDashboard() {
 	});
 	const { theme, toggleTheme } = useTheme();
 	const supabase = useMemo(() => createClient(), []);
-
-	useEffect(() => {
-		if (typeof window === "undefined") return;
-		try {
-			const raw = sessionStorage.getItem("sch_notifications");
-			if (!raw) return;
-			const parsed = JSON.parse(raw) as {
-				unreadCount?: number;
-				notifications?: { is_read: boolean }[];
-			};
-			if (typeof parsed.unreadCount === "number") {
-				setUnreadNotifications(parsed.unreadCount);
-				return;
-			}
-			if (Array.isArray(parsed.notifications)) {
-				const count = parsed.notifications.filter(
-					(item) => !item.is_read,
-				).length;
-				setUnreadNotifications(count);
-			}
-		} catch {
-			// Ignore cache errors.
-		}
-	}, []);
 
 	const getCurrentUser = useCallback<
 		() => Promise<any>
@@ -92,6 +69,8 @@ export default function ProfessionalDashboard() {
 					router.push("/login");
 					return;
 				}
+
+				setUserId(user.id);
 
 				const { data } = await supabase
 					.from("profiles")
@@ -253,6 +232,7 @@ export default function ProfessionalDashboard() {
 					theme={theme}
 					toggleTheme={toggleTheme}
 					fullName={profile?.full_name || ""}
+					userId={userId}
 					unreadNotifications={unreadNotifications}
 					onUnreadNotificationsChange={setUnreadNotifications}
 				/>
