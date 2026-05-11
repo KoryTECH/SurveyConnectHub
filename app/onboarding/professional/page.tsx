@@ -39,6 +39,7 @@ export default function ProfessionalOnboardingPage() {
 		city: "",
 		bio: "",
 		profession_type: "",
+		custom_profession: "",
 		years_experience: "",
 		license_number: "",
 	});
@@ -88,15 +89,24 @@ export default function ProfessionalOnboardingPage() {
 
 			setStep(stepMap[professional?.onboarding_step || "profile"] || 1);
 
+			const storedProfessionType = professional?.profession_type || "";
 			const isPlaceholderProfessional =
-				professional?.profession_type === "other" &&
+				storedProfessionType === "other" &&
 				!professional?.license_number &&
 				!professional?.onboarding_completed &&
 				(professional?.years_experience ?? 0) === 0;
+			const isCustomProfession =
+				!!storedProfessionType &&
+				!professionOptions.includes(storedProfessionType);
 
 			const initialProfessionType = isPlaceholderProfessional
 				? ""
-				: professional?.profession_type || "";
+				: isCustomProfession
+					? "other"
+					: storedProfessionType;
+			const initialCustomProfession = isCustomProfession
+				? storedProfessionType
+				: "";
 
 			setFormData({
 				full_name: profile.full_name || "",
@@ -105,6 +115,7 @@ export default function ProfessionalOnboardingPage() {
 				city: profile.city || "",
 				bio: profile.bio || "",
 				profession_type: initialProfessionType,
+				custom_profession: initialCustomProfession,
 				years_experience: professional?.years_experience
 					? String(professional.years_experience)
 					: "",
@@ -130,10 +141,18 @@ export default function ProfessionalOnboardingPage() {
 		}
 
 		const shouldValidateProfessionalFields = nextStep !== "professional";
+		const resolvedProfessionType =
+			formData.profession_type === "other"
+				? formData.custom_profession.trim()
+				: formData.profession_type;
 
-		if (shouldValidateProfessionalFields && !formData.profession_type) {
+		if (shouldValidateProfessionalFields && !resolvedProfessionType) {
 			setSaving(false);
-			setError("Profession is required");
+			setError(
+				formData.profession_type === "other"
+					? "Please enter your profession"
+					: "Profession is required",
+			);
 			return false;
 		}
 
@@ -177,7 +196,7 @@ export default function ProfessionalOnboardingPage() {
 							{
 								id: userId,
 								onboarding_step: nextStep,
-								profession_type: formData.profession_type,
+								profession_type: resolvedProfessionType,
 								years_experience: years,
 								license_number: formData.license_number.trim() || null,
 							},
@@ -412,6 +431,29 @@ export default function ProfessionalOnboardingPage() {
 									))}
 								</select>
 							</div>
+							{formData.profession_type === "other" && (
+								<div>
+									<label
+										htmlFor="onboarding-custom-profession"
+										className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+									>
+										Custom Profession <span className="text-red-500">*</span>
+									</label>
+									<input
+										id="onboarding-custom-profession"
+										type="text"
+										value={formData.custom_profession}
+										onChange={(e) =>
+											setFormData((prev) => ({
+												...prev,
+												custom_profession: e.target.value,
+											}))
+										}
+										placeholder="Enter your profession"
+										className="w-full rounded-xl border border-gray-300 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
+									/>
+								</div>
+							)}
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 								<div>
 									<label

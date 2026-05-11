@@ -322,7 +322,7 @@ export default function SignupPage() {
 							name="agreedTerms"
 							checked={formData.agreedTerms}
 							onChange={handleChange}
-							className="mt-1 h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500 dark:border-gray-700"
+							className="mt-1 h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500 dark:border-gray-700 dark:text-white dark:placeholder-gray-400"
 							required
 						/>
 						<span>
