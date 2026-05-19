@@ -7,6 +7,10 @@ ALTER TABLE jobs
 ALTER TABLE job_applications
   ADD COLUMN IF NOT EXISTS screening_answers text[];
 
+-- Ensure portfolio_items has file_url column
+ALTER TABLE IF EXISTS portfolio_items
+  ADD COLUMN IF NOT EXISTS file_url text;
+
 -- Create index for faster queries
 CREATE INDEX IF NOT EXISTS idx_jobs_experience_level ON jobs(experience_level);
 CREATE INDEX IF NOT EXISTS idx_jobs_screening_questions ON jobs USING GIN(screening_questions);

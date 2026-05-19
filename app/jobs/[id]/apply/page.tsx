@@ -79,13 +79,13 @@ export default function ApplyPage() {
 				return;
 			}
 
-			const { data: portfolioData } = await supabase
+			const { data: portfolioData, error: portfolioError } = await supabase
 				.from("portfolio_items")
 				.select("id, title, file_url")
 				.eq("professional_id", user.id)
 				.order("created_at", { ascending: false });
 
-			if (portfolioData?.length) {
+			if (portfolioData && portfolioData.length > 0) {
 				setPortfolioItems(portfolioData);
 				setSelectedPortfolioItemId(portfolioData[0].id);
 			} else {
